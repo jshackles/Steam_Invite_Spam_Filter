@@ -117,61 +117,69 @@ namespace SteamInviteSpamFilter
                 lnkResetCookies_LinkClicked(null, null);
                 return;
             }
-            foreach (HtmlNode invite in document.DocumentNode.SelectNodes("//div[contains(@class,'invite_row')]"))
+            try
             {
-                string user_name = "";
-                string user_profile_name = "";
-                string user_profile_id = "";
-                int user_level = 0;
-                HtmlNodeCollection user_name_data = invite.SelectNodes(".//a[contains(@class, 'linkTitle')]");
-                if (user_name_data != null)
+                foreach (HtmlNode invite in document.DocumentNode.SelectNodes("//div[contains(@class,'invite_row')]"))
                 {
-                    foreach (HtmlNode data in user_name_data)
+                    string user_name = "";
+                    string user_profile_name = "";
+                    string user_profile_id = "";
+                    int user_level = 0;
+                    HtmlNodeCollection user_name_data = invite.SelectNodes(".//a[contains(@class, 'linkTitle')]");
+                    if (user_name_data != null)
                     {
-                        if (data != null)
+                        foreach (HtmlNode data in user_name_data)
                         {
-                            user_name = data.InnerHtml;
-                            user_profile_name = data.GetAttributeValue("href", "not_found").ToString();
-                            user_profile_name = user_profile_name.Replace("http://steamcommunity.com/id/", "");
-                            user_profile_name = user_profile_name.Replace("http://steamcommunity.com/profiles/", "");
+                            if (data != null)
+                            {
+                                user_name = data.InnerHtml;
+                                user_profile_name = data.GetAttributeValue("href", "not_found").ToString();
+                                user_profile_name = user_profile_name.Replace("http://steamcommunity.com/id/", "");
+                                user_profile_name = user_profile_name.Replace("http://steamcommunity.com/profiles/", "");
+                            }
                         }
                     }
-                }
-                HtmlNodeCollection user_level_data = invite.SelectNodes(".//span[contains(@class, 'friendPlayerLevelNum')]");
-                if (user_level_data != null)
-                {
-                    foreach (HtmlNode data in user_level_data)
+                    HtmlNodeCollection user_level_data = invite.SelectNodes(".//span[contains(@class, 'friendPlayerLevelNum')]");
+                    if (user_level_data != null)
                     {
-                        if (data != null)
+                        foreach (HtmlNode data in user_level_data)
                         {
-                            user_level = Convert.ToInt16(data.InnerHtml);
+                            if (data != null)
+                            {
+                                user_level = Convert.ToInt16(data.InnerHtml);
+                            }
                         }
                     }
-                }
-                HtmlNodeCollection user_id_data = invite.SelectNodes(".//div[contains(@class, 'acceptDeclineBlock')]");
-                if (user_id_data != null)
-                {
-                    foreach (HtmlNode data in user_id_data)
+                    HtmlNodeCollection user_id_data = invite.SelectNodes(".//div[contains(@class, 'acceptDeclineBlock')]");
+                    if (user_id_data != null)
                     {
-                        if (data != null)
+                        foreach (HtmlNode data in user_id_data)
                         {
-                            user_profile_id = Regex.Match(data.InnerHtml, @"javascript:FriendAccept\( \'(\d.+)\', \'accept\'").Groups[1].Value;                            
+                            if (data != null)
+                            {
+                                user_profile_id = Regex.Match(data.InnerHtml, @"javascript:FriendAccept\( \'(\d.+)\', \'accept\'").Groups[1].Value;                            
+                            }
                         }
                     }
-                }
 
-                if (radIgnoreLevel.Checked)
-                {
-                    if (user_level <= numLevel.Value)
+                    if (radIgnoreLevel.Checked)
+                    {
+                        if (user_level <= numLevel.Value)
+                        {
+                            await IgnoreInvite(user_profile_id);
+                        }
+                    }
+
+                    if (radIgnoreAll.Checked)
                     {
                         await IgnoreInvite(user_profile_id);
                     }
+
                 }
 
-                if (radIgnoreAll.Checked)
-                {
-                    await IgnoreInvite(user_profile_id);
-                }
+            }
+            catch (Exception)
+            {
 
             }
         }

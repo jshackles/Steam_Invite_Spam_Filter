@@ -80,7 +80,7 @@ namespace SteamInviteSpamFilter
                     new KeyValuePair<string, string>("xml", "1"),
                     new KeyValuePair<string, string>("action", "approvePending"),
                     new KeyValuePair<string, string>("itype", "friend"),
-                    new KeyValuePair<string, string>("perform", "ignore"),
+                    new KeyValuePair<string, string>("perform", Properties.Settings.Default.blockInstead),
                     new KeyValuePair<string, string>("id", user_id),
                     new KeyValuePair<string, string>("sessionID", Properties.Settings.Default.sessionid)
                 });
@@ -270,11 +270,23 @@ namespace SteamInviteSpamFilter
             if (Properties.Settings.Default.enabled)
             {
                 chkEnable.Checked = true;
+                chkBlock.Enabled = true;
             }
             else
             {
                 chkEnable.Checked = false;
+                chkBlock.Enabled = false;
             }
+
+            if (Properties.Settings.Default.blockInstead == "block")
+            {
+                chkBlock.Checked = true;
+            }
+            else
+            {
+                chkBlock.Checked = false;
+            }
+
             numLevel.Value = Properties.Settings.Default.ignoreLevel;
         }
 
@@ -283,13 +295,28 @@ namespace SteamInviteSpamFilter
             if (chkEnable.Checked) 
             {
                 Properties.Settings.Default.enabled = true;
+                chkBlock.Enabled = true;
             }
             else
             {
                 Properties.Settings.Default.enabled = false;
+                chkBlock.Enabled = false;
             }
             Properties.Settings.Default.Save();
             tmrCheckInvites.Interval = 100;
+        }
+
+        private void chkBlock_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBlock.Checked)
+            {
+                Properties.Settings.Default.blockInstead = "block";
+            }
+            else
+            {
+                Properties.Settings.Default.blockInstead = "ignore";
+            }
+            Properties.Settings.Default.Save();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lnkSignIn = new System.Windows.Forms.LinkLabel();
-            this.lnkResetCookies = new System.Windows.Forms.LinkLabel();
             this.lblCookieStatus = new System.Windows.Forms.Label();
             this.tmrCheckCookieData = new System.Windows.Forms.Timer(this.components);
             this.tmrCheckInvites = new System.Windows.Forms.Timer(this.components);
@@ -41,17 +40,19 @@
             this.chkEnable = new System.Windows.Forms.CheckBox();
             this.ssFooter = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsInviteBlockedCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsStatusText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.picCookieStatus = new System.Windows.Forms.PictureBox();
             this.startMinimizedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.picCookieStatus = new System.Windows.Forms.PictureBox();
+            this.chkBlock = new System.Windows.Forms.CheckBox();
+            this.lnkResetCookies = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numLevel)).BeginInit();
             this.ssFooter.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -68,17 +69,6 @@
             this.lnkSignIn.TabStop = true;
             this.lnkSignIn.Text = "(Sign in)";
             this.lnkSignIn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSignIn_LinkClicked);
-            // 
-            // lnkResetCookies
-            // 
-            this.lnkResetCookies.AutoSize = true;
-            this.lnkResetCookies.Location = new System.Drawing.Point(256, 33);
-            this.lnkResetCookies.Name = "lnkResetCookies";
-            this.lnkResetCookies.Size = new System.Drawing.Size(52, 13);
-            this.lnkResetCookies.TabIndex = 7;
-            this.lnkResetCookies.TabStop = true;
-            this.lnkResetCookies.Text = "(Sign out)";
-            this.lnkResetCookies.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkResetCookies_LinkClicked);
             // 
             // lblCookieStatus
             // 
@@ -164,6 +154,13 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(13, 17);
             this.toolStripStatusLabel1.Text = "  ";
             // 
+            // tsStatusText
+            // 
+            this.tsStatusText.Image = global::SteamInviteSpamFilter.Properties.Resources.imgFalse;
+            this.tsStatusText.Name = "tsStatusText";
+            this.tsStatusText.Size = new System.Drawing.Size(115, 17);
+            this.tsStatusText.Text = "Filter not running";
+            // 
             // tsInviteBlockedCount
             // 
             this.tsInviteBlockedCount.Name = "tsInviteBlockedCount";
@@ -192,50 +189,6 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Steam Invite Spam Filter";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // tsStatusText
-            // 
-            this.tsStatusText.Image = global::SteamInviteSpamFilter.Properties.Resources.imgFalse;
-            this.tsStatusText.Name = "tsStatusText";
-            this.tsStatusText.Size = new System.Drawing.Size(115, 16);
-            this.tsStatusText.Text = "Filter not running";
-            // 
-            // picCookieStatus
-            // 
-            this.picCookieStatus.Location = new System.Drawing.Point(15, 33);
-            this.picCookieStatus.Name = "picCookieStatus";
-            this.picCookieStatus.Size = new System.Drawing.Size(15, 16);
-            this.picCookieStatus.TabIndex = 9;
-            this.picCookieStatus.TabStop = false;
-            // 
             // startMinimizedToolStripMenuItem
             // 
             this.startMinimizedToolStripMenuItem.Image = global::SteamInviteSpamFilter.Properties.Resources.imgFalse;
@@ -249,11 +202,72 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 6);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Steam Invite Spam Filter";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // picCookieStatus
+            // 
+            this.picCookieStatus.Location = new System.Drawing.Point(15, 33);
+            this.picCookieStatus.Name = "picCookieStatus";
+            this.picCookieStatus.Size = new System.Drawing.Size(15, 16);
+            this.picCookieStatus.TabIndex = 9;
+            this.picCookieStatus.TabStop = false;
+            // 
+            // chkBlock
+            // 
+            this.chkBlock.AutoSize = true;
+            this.chkBlock.Enabled = false;
+            this.chkBlock.Location = new System.Drawing.Point(86, 56);
+            this.chkBlock.Name = "chkBlock";
+            this.chkBlock.Size = new System.Drawing.Size(81, 17);
+            this.chkBlock.TabIndex = 16;
+            this.chkBlock.Text = "Block users";
+            this.chkBlock.UseVisualStyleBackColor = true;
+            this.chkBlock.CheckedChanged += new System.EventHandler(this.chkBlock_CheckedChanged);
+            // 
+            // lnkResetCookies
+            // 
+            this.lnkResetCookies.AutoSize = true;
+            this.lnkResetCookies.Location = new System.Drawing.Point(256, 33);
+            this.lnkResetCookies.Name = "lnkResetCookies";
+            this.lnkResetCookies.Size = new System.Drawing.Size(52, 13);
+            this.lnkResetCookies.TabIndex = 7;
+            this.lnkResetCookies.TabStop = true;
+            this.lnkResetCookies.Text = "(Sign out)";
+            this.lnkResetCookies.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkResetCookies_LinkClicked);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(363, 175);
+            this.Controls.Add(this.chkBlock);
             this.Controls.Add(this.ssFooter);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.chkEnable);
@@ -285,7 +299,6 @@
         #endregion
 
         private System.Windows.Forms.LinkLabel lnkSignIn;
-        private System.Windows.Forms.LinkLabel lnkResetCookies;
         private System.Windows.Forms.Label lblCookieStatus;
         private System.Windows.Forms.Timer tmrCheckCookieData;
         private System.Windows.Forms.Timer tmrCheckInvites;
@@ -306,6 +319,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startMinimizedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.CheckBox chkBlock;
+        private System.Windows.Forms.LinkLabel lnkResetCookies;
 
     }
 }

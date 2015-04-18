@@ -230,6 +230,7 @@
             this.notifyIcon1.Text = "Steam Invite Spam Filter";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseSingleClick);
             // 
             // picCookieStatus
             // 

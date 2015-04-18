@@ -338,10 +338,27 @@ namespace SteamInviteSpamFilter
             }
         }
 
+        private void notifyIcon1_MouseSingleClick(object Sender, MouseEventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                this.Activate();
+            }
+        }
+
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
+            if (this.WindowState != FormWindowState.Normal)
+            {
+                this.Show();
+                this.Activate();
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.Hide();
+                this.WindowState = FormWindowState.Minimized;
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
